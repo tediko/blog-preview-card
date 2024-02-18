@@ -99,7 +99,6 @@ body {
     }
 
     .card__container:hover .card__link {
-        text-decoration: underline;
         color: var(--c-yellow);
     }
 
@@ -108,11 +107,11 @@ body {
     }
 
     .card__container:focus-within .card__link {
-        text-decoration: none;
         color: var(--c-yellow);
     }
     
     .card__link:focus-visible {
+        text-decoration: underline;
         outline: none;
     }
 }
