@@ -1,25 +1,30 @@
 const card = document.querySelector('[data-card]');
 const link = document.querySelector('[data-link]');
 
-// Check if user is clicking on the card or trying to copy something out of it.
-let up, down;
+
+let mousePressedPoint, mouseReleasePoint;
 const threshold = 200;
 card.style.cursor = 'pointer';
     
 card.onmousedown = () => {
-    down = new Date();
+    mouseReleasePoint = new Date();
 }
 
+// Detect how long user is taking between mousedown and mouseup
+// -- If releaseTime is less than threshold value and event.target isn't link element then fire click() method on link.
+// -- If releaseTime is more than threshold - nothing happens.
+// -- If link is clicked directly - performs normal anchor behaviour.
 card.onmouseup = (event) => {
-    if (link === event.target) {
-        console.log('link clicked directly! Prevent the event from firing twice'); // logs for demonstration
-        return;
-    };
-
-    up = new Date();
-    if ((up - down) < threshold) {
-        link.click();
-        console.log('card clicked! Fire click() method on link'); // logs for demonstration
+    mousePressedPoint = new Date();
+    let releaseTime = mousePressedPoint - mouseReleasePoint;
+    
+    if (releaseTime < threshold) {
+        if (link !== event.target) {
+            link.click();
+            console.log('card clicked! Fired click() method on link'); // logs for demonstration
+        } else if (link === event.target) {
+            console.log('link clicked! Prevented event from firing twice'); // logs for demonstration
+        }
     } else {
         console.log('likely to be selecting text. Nothing happens'); // logs for demonstration
     }
