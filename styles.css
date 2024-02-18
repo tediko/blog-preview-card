@@ -68,10 +68,6 @@ body {
     transition: color 200ms ease-in-out;
 }
 
-.card__link:hover {
-    color: var(--c-yellow);
-}
-
 .card__desc {
     color: var(--c-grey);
     font-size: 0.875rem;
@@ -97,12 +93,32 @@ body {
 }
 
 /* MEDIA QUERIES */
-@media (min-width: 62.5em) {
-    .card__container:has(.card__link:hover) {
+@media (min-width: 48.0625em) {
+    .card__container:hover {
         box-shadow: 12px 12px 0px 0px var(--c-black);
     }
 
-    .card__preview {
+    .card__container:hover .card__link {
+        text-decoration: underline;
+        color: var(--c-yellow);
+    }
+
+    .card__container:focus-within {
+        box-shadow: 12px 12px 0px 0px var(--c-black);
+    }
+
+    .card__container:focus-within .card__link {
+        text-decoration: none;
+        color: var(--c-yellow);
+    }
+    
+    .card__link:focus-visible {
+        outline: none;
+    }
+}
+
+@media (min-width: 62.5em) {
+        .card__preview {
         height: unset;
     }
 
