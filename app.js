@@ -1,30 +1,26 @@
 const card = document.querySelector('[data-card]');
 const link = document.querySelector('[data-link]');
-card.style.cursor = 'pointer';
 
 // Check if user is clicking on the card or trying to copy something out of it.
-// If user is pressing mouse button longer than threshold then do nothing
-// Otherwise open link
-function handleCardClick() {
-    let up, down;
-    const threshold = 200;
-
-    card.onmousedown = () => {
-        down = new Date();
-    }
-    card.onmouseup = () => {
-        up = new Date();
-        if ((up - down) < threshold) {
-            link.click();
-            console.log('card clicked!'); // keeping these comments for demonstration
-        } else {
-            console.log('likely to be selecting text'); // keeping these comments for demonstration
-        }
-    }
+let up, down;
+const threshold = 200;
+card.style.cursor = 'pointer';
+    
+card.onmousedown = () => {
+    down = new Date();
 }
 
-card.addEventListener('click', (event) => {
-    if (link !== event.target) {
-        handleCardClick();
+card.onmouseup = (event) => {
+    if (link === event.target) {
+        console.log('link clicked directly! Prevent the event from firing twice'); // logs for demonstration
+        return;
+    };
+
+    up = new Date();
+    if ((up - down) < threshold) {
+        link.click();
+        console.log('card clicked! Fire click() method on link'); // logs for demonstration
+    } else {
+        console.log('likely to be selecting text. Nothing happens'); // logs for demonstration
     }
-});
+}
